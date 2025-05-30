@@ -1,0 +1,126 @@
+{
+  "info": {
+    "name": "Quotes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p6"
+  },
+  "item": [
+    {
+      "name": "Add Quote",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"author\": \"Confucius\",\n    \"quote\": \"Life is simple, but we insist on making it complicated.\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/quotes",
+          "host": ["{{base_url}}"],
+          "path": ["quotes"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Quotes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/quotes",
+          "host": ["{{base_url}}"],
+          "path": ["quotes"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Random Quote",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/quotes/random",
+          "host": ["{{base_url}}"],
+          "path": ["quotes", "random"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Filter by Author",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/quotes?author=Confucius",
+          "host": ["{{base_url}}"],
+          "path": ["quotes"],
+          "query": [
+            {
+              "key": "author",
+              "value": "Confucius"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Quote",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/quotes/1",
+          "host": ["{{base_url}}"],
+          "path": ["quotes", "1"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "exec": [
+          "// Универсальные тесты для всех запросов",
+          "pm.test(\"Status code is successful\", function() {",
+          "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+          "});",
+          "",
+          "pm.test(\"Response time is less than 200ms\", function() {",
+          "    pm.expect(pm.response.responseTime).to.be.below(200);",
+          "});",
+          "",
+          "// Специфичные тесты для разных методов",
+          "if (pm.request.method === 'POST') {",
+          "    pm.test(\"POST should return 201\", function() {",
+          "        pm.expect(pm.response.code).to.equal(201);",
+          "    });",
+          "}",
+          "",
+          "if (pm.request.method === 'DELETE') {",
+          "    pm.test(\"DELETE should return 204\", function() {",
+          "        pm.expect(pm.response.code).to.equal(204);",
+          "    });",
+          "}"
+        ],
+        "type": "text/javascript"
+      }
+    }
+  ]
+}
