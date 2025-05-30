@@ -11,7 +11,7 @@
 
 1. Клонируйте репозиторий:
    ```bash
-   git clone https://github.com/yourusername/quotes-api.git
+   git clone https://github.com/golangtestcases/quotes-api.git
    cd quotes-api
 
    Соберите и запустите образ:
